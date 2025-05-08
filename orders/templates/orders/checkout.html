@@ -1,0 +1,31 @@
+{% extends "shop/base.html" %}
+{% block title %}Checkout – ThreadForge{% endblock %}
+{% block content %}
+<h1 class="mb-4">Checkout</h1>
+
+<table class="table table-sm">
+  <thead><tr><th>Product</th><th>Qty</th><th class="text-end">Subtotal</th></tr></thead>
+  <tbody>
+    {% for item in cart %}
+      <tr>
+        <td>{{ item.product.name }}</td>
+        <td>{{ item.quantity }}</td>
+        <td class="text-end">EGP {{ item.total }}</td>
+      </tr>
+    {% endfor %}
+    <tr class="fw-bold">
+      <td colspan="2">Total</td>
+      <td class="text-end">EGP {{ cart.get_total_price }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<form method="post" class="mt-3">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button class="btn btn-success">Place order</button>
+  <a href="{% url 'cart:cart_detail' %}" class="btn btn-secondary ms-2">Back to cart</a>
+</form>
+{% endblock %}
