@@ -1,0 +1,30 @@
+{% extends "shop/base.html" %}
+{% block title %}Collection – ThreadForge{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Our Collection</h1>
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+  {% for p in products %}
+    <div class="col">
+      <div class="card h-100">
+        {% if p.image %}
+          <img src="{{ p.image.url }}" class="card-img-top" alt="{{ p.name }}">
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">{{ p.name }}</h5>
+          <p class="card-text">EGP {{ p.price }}</p>
+
+          <!-- link to the detail page -->
+          <a href="{% url 'shop:product_detail' p.slug %}"
+             class="btn btn-primary w-100">
+             View
+          </a>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <p>No products yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}

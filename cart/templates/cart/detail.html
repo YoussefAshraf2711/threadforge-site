@@ -1,0 +1,43 @@
+{% extends "shop/base.html" %}
+{% block title %}Your Cart – ThreadForge{% endblock %}
+{% block content %}
+<h1 class="mb-4">Shopping Cart</h1>
+
+{% if cart|length == 0 %}
+  <p>Your cart is empty.</p>
+  <a href="/" class="btn btn-primary">Back to shop</a>
+{% else %}
+<table class="table align-middle">
+  <thead><tr>
+    <th>Product</th><th>Qty</th><th>Price</th><th>Total</th><th></th>
+  </tr></thead>
+  <tbody>
+  {% for item in cart %}
+    <tr>
+      <td>{{ item.product.name }}</td>
+      <td>{{ item.quantity }}</td>
+      <td>EGP {{ item.product.price }}</td>
+      <td>EGP {{ item.total }}</td>
+      <td>
+        <a href="{% url 'cart:cart_remove' item.product.id %}" class="btn btn-sm btn-danger">×</a>
+      </td>
+    </tr>
+    <td>
+        <form action="{% url 'cart:cart_update' item.product.id %}" method="post" class="d-flex">
+          {% csrf_token %}
+          <input type="number" name="quantity" value="{{ item.quantity }}"
+                 min="1" max="20" class="form-control form-control-sm me-2" style="width:4rem;">
+          <input type="hidden" name="update" value="true">
+          <button class="btn btn-sm btn-outline-primary">↻</button>
+        </form>
+      </td>
+      <td>
+        <a href="{% url 'cart:cart_remove' item.product.id %}" class="btn btn-sm btn-danger">×</a>
+      </td>      
+  {% endfor %}
+  </tbody>
+</table>
+<h4>Total: EGP {{ cart.get_total_price }}</h4>
+<a href="/" class="btn btn-secondary">Continue shopping</a>
+{% endif %}
+{% endblock %}

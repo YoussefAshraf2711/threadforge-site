@@ -1,0 +1,37 @@
+{% extends "shop/base.html" %}
+{% block title %}{{ product.name }} – ThreadForge{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-md-6">
+    {% if product.image %}
+      <img src="{{ product.image.url }}" class="img-fluid rounded" alt="{{ product.name }}">
+    {% endif %}
+  </div>
+  <div class="col-md-6">
+    <h1>{{ product.name }}</h1>
+    <p class="lead">EGP {{ product.price }}</p>
+    <p>{{ product.description }}</p>
+
+
+    <form action="{% url 'cart:cart_add' product.id %}" method="post" class="d-inline">
+      {% csrf_token %}
+  
+      <!-- quantity selector -->
+      <input type="number" name="quantity" value="1"
+             min="1" max="20"
+             class="form-control form-control-sm d-inline-block"
+             style="width:4rem; vertical-align:middle;">
+  
+      <!-- hidden flag so the view knows this is NOT an “update” -->
+      <input type="hidden" name="update" value="false">
+  
+      <button type="submit" class="btn btn-success ms-2">
+          Add&nbsp;to&nbsp;cart
+      </button>
+  </form>
+  
+    
+    <a href="/" class="btn btn-outline-secondary ms-2">← Back</a>
+  </div>
+</div>
+{% endblock %}
