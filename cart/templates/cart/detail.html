@@ -24,12 +24,13 @@
     </tr>
     <td>
         <form action="{% url 'cart:cart_update' item.product.id %}" method="post" class="d-flex">
-          {% csrf_token %}
-          <input type="number" name="quantity" value="{{ item.quantity }}"
-                 min="1" max="20" class="form-control form-control-sm me-2" style="width:4rem;">
-          <input type="hidden" name="update" value="true">
-          <button class="btn btn-sm btn-outline-primary">↻</button>
-        </form>
+            {% csrf_token %}
+            <input type="number" name="quantity" value="{{ item.quantity }}"
+                   min="1" max="20"
+                   class="form-control form-control-sm me-2" style="width:4rem;">
+            <input type="hidden" name="update" value="true">
+            <button class="btn btn-sm btn-outline-primary">↻</button>
+          </form>          
       </td>
       <td>
         <a href="{% url 'cart:cart_remove' item.product.id %}" class="btn btn-sm btn-danger">×</a>
