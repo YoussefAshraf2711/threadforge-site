@@ -1,0 +1,10 @@
+{% extends "shop/base.html" %}
+{% block title %}Sign up{% endblock %}
+{% block content %}
+<h1>Create account</h1>
+<form method="post">{% csrf_token %}
+  {{ form.as_p }}
+  <button class="btn btn-success">Sign up</button>
+  <a href="{% url 'login' %}" class="btn btn-link">Log in</a>
+</form>
+{% endblock %}

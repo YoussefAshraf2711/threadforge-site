@@ -1,0 +1,21 @@
+{% extends "shop/base.html" %}
+{% block title %}My Orders{% endblock %}
+{% block content %}
+<h1 class="mb-4">My Orders</h1>
+{% if orders %}
+<table class="table">
+  <thead><tr><th>ID</th><th>Date</th><th>Total</th></tr></thead>
+  <tbody>
+  {% for o in orders %}
+    <tr>
+      <td>#{{ o.id }}</td>
+      <td>{{ o.created_at|date:"Y-m-d H:i" }}</td>
+      <td>EGP {{ o.total_price }}</td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
+{% else %}
+  <p>You haven’t placed any orders yet.</p>
+{% endif %}
+{% endblock %}
